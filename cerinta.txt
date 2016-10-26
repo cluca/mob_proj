@@ -1,0 +1,5 @@
+O aplicatie care gestioneaza liste de cumparaturi
+
+ - operatii CRUD pe lista de cumparaturi
+ - autentificare doar cu username
+ 
