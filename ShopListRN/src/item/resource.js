@@ -1,7 +1,7 @@
 import {getLogger, ResourceError} from '../core/utils';
 import {apiUrl, authHeaders} from '../core/api';
 
-const log = getLogger('note/resource');
+const log = getLogger('item/resource');
 
 export const search = async(token, user) => {
     const url = `${apiUrl}/shoplist?id=`+user._id;

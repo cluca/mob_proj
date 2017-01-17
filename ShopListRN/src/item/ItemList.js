@@ -1,21 +1,21 @@
 import React, {Component} from 'react';
 import {ListView, Text, View, StatusBar, ActivityIndicator} from 'react-native';
-import {ItemEdit} from './NoteEdit';
-import {ItemView} from './NoteView';
+import {ItemEdit} from './ItemEdit';
+import {ItemView} from './ItemView';
 import {loadItems, cancelLoadItems} from './service';
 import {registerRightAction, getLogger, issueToText} from '../core/utils';
 import styles from '../core/styles';
 
 const log = getLogger('ItemList');
-const NOTE_LIST_ROUTE = 'item/list';
+const ITEM_LIST_ROUTE = 'item/list';
 
 export class ItemList extends Component {
     static get routeName() {
-        return NOTE_LIST_ROUTE;
+        return ITEM_LIST_ROUTE;
     }
 
     static get route() {
-        return {name: NOTE_LIST_ROUTE, title: 'Item List', rightText: 'New'};
+        return {name: ITEM_LIST_ROUTE, title: 'Item List', rightText: 'New'};
     }
 
     constructor(props) {

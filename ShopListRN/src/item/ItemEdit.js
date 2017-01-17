@@ -5,14 +5,14 @@ import {registerRightAction, issueToText, getLogger} from '../core/utils';
 import styles from '../core/styles';
 
 const log = getLogger('ItemEdit');
-const NOTE_EDIT_ROUTE = 'item/edit';
+const ITEM_EDIT_ROUTE = 'item/edit';
 export class ItemEdit extends Component {
     static get routeName() {
-        return NOTE_EDIT_ROUTE;
+        return ITEM_EDIT_ROUTE;
     }
 
     static get route() {
-        return {name: NOTE_EDIT_ROUTE, title: 'Product Edit', rightText: 'Save'};
+        return {name: ITEM_EDIT_ROUTE, title: 'Product Edit', rightText: 'Save'};
     }
 
     constructor(props) {
