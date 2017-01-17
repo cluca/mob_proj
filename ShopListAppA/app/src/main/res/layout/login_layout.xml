@@ -4,7 +4,7 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.MainActivity">
+    tools:context=".LoginActivity">
 
     <TextView
         android:text="@string/usernameHint"
@@ -15,7 +15,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginTop="28dp"
         android:layout_alignParentEnd="true"
-        android:labelFor="@id/username"/>
+        />
 
     <TextView
         android:text="@string/passwordHint"
@@ -25,7 +25,6 @@
         android:layout_alignParentStart="true"
         android:layout_marginTop="14dp"
         android:id="@+id/textView3"
-        android:labelFor="@id/password"
         android:layout_alignParentEnd="true" />
 
     <EditText
@@ -39,23 +38,14 @@
         android:id="@+id/password"
         android:layout_alignParentEnd="true" />
 
-    <Button
-        android:text="@string/login"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/password"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="142dp"
-        android:id="@+id/loginBtn" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
         android:ems="10"
         android:id="@+id/errors"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -66,5 +56,14 @@
         android:layout_below="@+id/textView2"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true" />
+
+    <Button
+        android:text="@string/login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="96dp"
+        android:id="@+id/loginBtn"
+        android:layout_below="@+id/errors"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

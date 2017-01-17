@@ -1,4 +1,4 @@
-package cluca.shoplist;
+package cluca.shoplistappa;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package cluca.shoplist;
+package cluca.shoplistappa;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
