@@ -1,5 +1,6 @@
 package cluca.shoplistappa;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -58,26 +59,23 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                User result = null;
+                User user = null;
                 try {
-                    result = new LoginReader().execute(username.getText().toString(), password.getText().toString()).get();
+                    user = new LoginReader().execute(username.getText().toString(), password.getText().toString()).get();
                 }catch(InterruptedException e){
                     System.out.println("InterruptExecution on login with stack"+ e.getMessage());
                 }catch(ExecutionException e){
                     System.out.println("Execution exception on login with stack"+ e.getMessage());
                 }
-                if (result != null) {
-                    showAlert(result.getUsername());
+                if (user != null) {
+                    Intent intent = new Intent(getApplicationContext(), ListProducts.class);
+                    intent.putExtra("id", user.getId());
+                    intent.putExtra("username", user.getUsername());
+                    intent.putExtra("password", user.getPassword());
+                    startActivity(intent);
                 } else {
                     showAlert("Invalid username and/or password");
                 }
-//                if(result.equals("verified")) {
-//                    Intent intent = new Intent(getApplicationContext(), ListProducts.class);
-//                    startActivity(intent);
-//                }
-//                else{
-//                    showAlert("Username or Password is wrong");
-//                }
             }
         });
     }

@@ -3,4 +3,8 @@
     <string name="login">Login</string>
     <string name="usernameHint">Username</string>
     <string name="passwordHint">Password</string>
+    <string name="addButton">New</string>
+    <string name="deleteButton">Remove</string>
+    <string name="updateButton">Update</string>
+    <string name="loginActivityName">Login</string>
 </resources>
