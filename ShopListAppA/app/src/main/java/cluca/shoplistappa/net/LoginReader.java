@@ -25,7 +25,7 @@ public class LoginReader extends AsyncTask<String, String, User> {
         try{
             String username = strings[0];
             String password = strings[1];
-            String link = "http://192.168.0.101:3000/api/auth/session?username="+username+"&password="+password;
+            String link = "http://172.30.118.237:3000/api/auth/session?username="+username+"&password="+password;
 
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()

@@ -26,7 +26,7 @@ public class DeleteProduct extends AsyncTask<Integer, String, Boolean> {
         try{
             int userId = integers[0];
             int itemId = integers[1];
-            String link = "http://192.168.0.101:3000/api/deleteItem?userId="+userId+"&itemId="+itemId;
+            String link = "http://172.30.118.237:3000/api/deleteItem?userId="+userId+"&itemId="+itemId;
 
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
