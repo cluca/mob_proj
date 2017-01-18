@@ -246,6 +246,6 @@ app.post(apiUrl+'/deleteItem', function (req, res) {
     }
 });
 
-app.listen(3000,'172.30.118.237', function () {
+app.listen(3000,'10.220.12.170', function () {
     console.log('Android application listening on port 3000!');
 });

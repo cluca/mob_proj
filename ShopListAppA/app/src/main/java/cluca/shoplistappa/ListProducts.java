@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import cluca.shoplistappa.domain.Product;
+import cluca.shoplistappa.net.AddProduct;
 import cluca.shoplistappa.net.DeleteProduct;
 import cluca.shoplistappa.net.ProductsReader;
 import cluca.shoplistappa.net.UpdateProduct;
@@ -66,6 +67,7 @@ public class ListProducts extends AppCompatActivity {
                 ArrayAdapter<Product> arrayAdapter = (ArrayAdapter<Product>) adapterView.getAdapter();
                 selectedProduct = arrayAdapter.getItem(i);
                 if (selectedProduct != null) {
+                    showAlert(selectedProduct.getText());
                     enableButtons();
                 }
             }
@@ -101,11 +103,46 @@ public class ListProducts extends AppCompatActivity {
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Product product = null;
-                try {
-                    product = new UpdateProduct().execute(String.valueOf(intent.getIntExtra("id", 0)), String.valueOf(selectedProduct.getId()), editText.getText().toString()).get();
-                } catch (InterruptedException | ExecutionException e) {
-                    e.printStackTrace();
+                if (selectedProduct != null) {
+                    Product product = null;
+                    try {
+                        product = new UpdateProduct().execute(String.valueOf(intent.getIntExtra("id", 0)), String.valueOf(selectedProduct.getId()), editText.getText().toString()).get();
+                    } catch (InterruptedException | ExecutionException e) {
+                        e.printStackTrace();
+                    }
+                    if (product != null) {
+                        showAlert("Produsul a fost actualizat!");
+                        adapter.insert(product, adapter.getPosition(selectedProduct));
+                        disableButtons();
+                    } else {
+                        showAlert("Produsul nu a fost actualizat!");
+                        selectedProduct = null;
+                        disableButtons();
+                    }
+                } else {
+                    showAlert("Niciun produs selectat!");
+                }
+            }
+        });
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (editText.getText().toString().matches("")){
+                    showAlert("Scrie ceva aici!");
+                } else {
+                    Product product = null;
+                    try {
+                        product = new AddProduct().execute(String.valueOf(intent.getIntExtra("id", 0)), editText.getText().toString()).get();
+                    } catch (InterruptedException | ExecutionException e) {
+                        e.printStackTrace();
+                    }
+                    if (product != null) {
+                        showAlert("Produsul a fost adaugat!");
+                        adapter.add(product);
+                    } else {
+                        showAlert("Produsul nu a fost actualizat!");
+                        selectedProduct = null;
+                    }
                 }
             }
         });

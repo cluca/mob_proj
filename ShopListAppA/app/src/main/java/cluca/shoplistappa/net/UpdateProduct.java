@@ -25,8 +25,8 @@ public class UpdateProduct extends AsyncTask<String, String, Product> {
         try {
             int userId = Integer.parseInt(strings[0]);
             int productId = Integer.parseInt(strings[1]);
-            int productText = Integer.parseInt(strings[2]);
-            String link = "http://172.30.118.237:3000/api/item?userId=" + userId+"&itemId="+productId+"&itemText="+productText;
+            String productText = strings[2];
+            String link = ApiUrl.API+"/item?userId=" + userId+"&itemId="+productId+"&itemText="+productText;
 
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
@@ -57,7 +57,9 @@ public class UpdateProduct extends AsyncTask<String, String, Product> {
             }
             return products.size() == 1 ? products.get(0) : null;
         } catch (Exception e) {
-            return null;
+            Product product = new Product();
+            product.setText(e.getMessage());
+            return product;
         }
     }
 }

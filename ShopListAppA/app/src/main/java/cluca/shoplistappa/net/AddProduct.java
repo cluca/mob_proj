@@ -16,17 +16,16 @@ import java.util.ArrayList;
 import cluca.shoplistappa.domain.Product;
 
 /**
- * Created by cluca on 17-Jan-17.
+ * Created by cluca on 18-Jan-17.
  * ShopListAppA
  */
-public class DeleteProduct extends AsyncTask<Integer, String, Boolean> {
+public class AddProduct extends AsyncTask<String, String, Product> {
     @Override
-    protected Boolean doInBackground(Integer... integers) {
-        Boolean deleted = null;
-        try{
-            int userId = integers[0];
-            int itemId = integers[1];
-            String link = ApiUrl.API+"/deleteItem?userId="+userId+"&itemId="+itemId;
+    protected Product doInBackground(String... strings) {
+        try {
+            int userId = Integer.parseInt(strings[0]);
+            String productText = strings[1];
+            String link = ApiUrl.API+"/item?userId=" + userId+"&itemText="+productText;
 
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
@@ -38,7 +37,7 @@ public class DeleteProduct extends AsyncTask<Integer, String, Boolean> {
             Response response = null;
             try {
                 response = client.newCall(request).execute();
-            }catch(IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
             String jsonData = null;
@@ -48,17 +47,18 @@ public class DeleteProduct extends AsyncTask<Integer, String, Boolean> {
             JSONObject Jobject = new JSONObject(jsonData);
             JSONArray jsonArray = Jobject.getJSONArray("data");
             ArrayList<Product> products = new ArrayList<>();
-            for (int i = 0; i < jsonArray.length(); i++){
+            for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 Product product = new Product();
                 product.setId(jsonObject.getInt("idLista"));
                 product.setText(jsonObject.getString("text"));
                 products.add(product);
             }
-            deleted = products.size() == 1?Boolean.TRUE:Boolean.FALSE;
-            return deleted;
+            return products.size() == 1 ? products.get(0) : null;
         } catch (Exception e) {
-            return null;
+            Product product = new Product();
+            product.setText(e.getMessage());
+            return product;
         }
     }
 }

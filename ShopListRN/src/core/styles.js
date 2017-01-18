@@ -8,6 +8,11 @@ const styles = StyleSheet.create({
   activityIndicator: {
     height: 50
   },
+  box: {
+    backgroundColor: 'blue',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
 
 export default styles;

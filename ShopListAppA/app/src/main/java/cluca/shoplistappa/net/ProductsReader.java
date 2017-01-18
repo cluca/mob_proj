@@ -24,7 +24,7 @@ public class ProductsReader extends AsyncTask<Integer, String, ArrayList<Product
         ArrayList<Product> products;
         try{
             int userId = ints[0];
-            String link = "http://172.30.118.237:3000/api/shoplist?id="+userId;
+            String link = ApiUrl.API+"/shoplist?id="+userId;
 
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()

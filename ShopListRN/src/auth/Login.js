@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import {Text, View, TextInput, StyleSheet, ActivityIndicator} from 'react-native';
+import {Text, View, TextInput, StyleSheet,
+    ActivityIndicator, UIManager, LayoutAnimation,
+    TouchableOpacity} from 'react-native';
 import {login} from './service';
 import {getLogger, registerRightAction, issueToText} from '../core/utils';
 import styles from '../core/styles';
@@ -7,7 +9,8 @@ import styles from '../core/styles';
 const log = getLogger('auth/Login');
 
 const LOGIN_ROUTE = 'auth/login';
-
+UIManager.setLayoutAnimationEnabledExperimental &&
+UIManager.setLayoutAnimationEnabledExperimental(true);
 export class Login extends Component {
   static get routeName() {
     return LOGIN_ROUTE;
@@ -24,10 +27,10 @@ export class Login extends Component {
     this.navigator = this.props.navigator;
     log('constructor');
   }
-
   componentWillMount() {
     log('componentWillMount');
     this.updateState();
+    LayoutAnimation.spring();
     registerRightAction(this.navigator, this.onLogin.bind(this));
   }
 
@@ -47,6 +50,9 @@ export class Login extends Component {
         </View>
         <View style={{flex:2}}>
           <MyGeolocation />
+        </View>
+        <View style={{flex:1}}>
+          <Animat />
         </View>
       </View>
     );
@@ -110,6 +116,34 @@ class MyGeolocation extends Component {
             <Text style={styles.title}>Current position: </Text>
               {this.state.lastPosition}
           </Text>
+        </View>
+    );
+  }
+}
+
+class Animat extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      w: 100, h: 100
+    };
+    this._onPress = this._onPress.bind(this);
+  }
+  componentWillMount() {  // Animate creation
+    LayoutAnimation.spring();
+  }
+  _onPress() {  // Animate the update
+    LayoutAnimation.spring();
+    this.setState({w: this.state.w + 15, h: this.state.h + 15})
+  }
+  render() {
+    return (
+        <View style={styles.container}>
+          <TouchableOpacity onPress={this._onPress}>
+            <View style={[styles.box, {width: this.state.w, height: this.state.h}]}>
+              <Text>Press me!</Text>
+            </View>
+          </TouchableOpacity>
         </View>
     );
   }
