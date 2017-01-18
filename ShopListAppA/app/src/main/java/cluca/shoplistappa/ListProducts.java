@@ -8,8 +8,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +18,7 @@ import java.util.concurrent.ExecutionException;
 import cluca.shoplistappa.domain.Product;
 import cluca.shoplistappa.net.DeleteProduct;
 import cluca.shoplistappa.net.ProductsReader;
+import cluca.shoplistappa.net.UpdateProduct;
 
 /**
  * Created by cluca on 17-Jan-17.
@@ -28,7 +29,7 @@ public class ListProducts extends AppCompatActivity {
     private Button addButton;
     private Button deleteButton;
     private Button updateButton;
-    private TextView textView;
+    private EditText editText;
     private Product selectedProduct;
     private Intent intent;
 
@@ -43,7 +44,8 @@ public class ListProducts extends AppCompatActivity {
         addButton = (Button) findViewById(R.id.addBtn);
         deleteButton = (Button) findViewById(R.id.deleteBtn);
         updateButton = (Button) findViewById(R.id.updateBtn);
-        textView = (TextView) findViewById(R.id.show);
+        editText = (EditText) findViewById(R.id.show);
+
 
         List<Product> array = new ArrayList<>();
         try {
@@ -96,10 +98,21 @@ public class ListProducts extends AppCompatActivity {
                 }
             }
         });
+        updateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Product product = null;
+                try {
+                    product = new UpdateProduct().execute(String.valueOf(intent.getIntExtra("id", 0)), String.valueOf(selectedProduct.getId()), editText.getText().toString()).get();
+                } catch (InterruptedException | ExecutionException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     private void showAlert(String s) {
-        textView.setText(s);
+        editText.setText(s);
     }
 
     private void disableButtons(){
