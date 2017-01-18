@@ -6,5 +6,5 @@ package cluca.shoplistappa.net;
  */
 
 class ApiUrl {
-    static String API = "http://172.25.12.69:3000/api";
+    static String API = "http://10.220.12.170:3000/api";
 }

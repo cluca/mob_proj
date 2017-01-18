@@ -1,28 +1,21 @@
 package cluca.shoplistappa;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
 import cluca.shoplistappa.domain.User;
@@ -39,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button loginBtn;
     private TextView errors;
     private Context context;
+    private ImageView image;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -87,57 +81,16 @@ public class LoginActivity extends AppCompatActivity {
                     intent.putExtra("password", user.getPassword());
                     startActivity(intent);
                 } else {
+                    Vibrator vibrator = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
+                    vibrator.vibrate(1000);
                     showAlert("Invalid username and/or password");
                 }
             }
         });
-        context = getApplicationContext();
-        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-
-        LocationListener locationListener = new LocationListener() {
-
-            @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-
-            }
-
-            @Override
-            public void onProviderEnabled(String provider) {
-
-            }
-
-            @Override
-            public void onProviderDisabled(String provider) {
-
-            }
-
-            @Override
-            public void onLocationChanged(Location location) {
-                double latitude = location.getLatitude();
-                double longitude = location.getLongitude();
-                String cityName;
-                Geocoder gcd = new Geocoder(getBaseContext(), Locale.getDefault());
-                try {
-                    List<Address> addresses = gcd.getFromLocation(latitude,longitude, 1);
-                    if (addresses.size() > 0) {
-                        System.out.println(addresses.get(0).getLocality());
-                        cityName = addresses.get(0).getLocality();
-                        String s = latitude + " Current City is: " + cityName;
-                        showAlert(s);
-                    }
-                }
-                catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        };
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 0, locationListener);
+        image = (ImageView)findViewById(R.id.imageView);
+        Animation animation = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.clockwise);
+        image.startAnimation(animation);
     }
 
     private void checkCredentials() {
